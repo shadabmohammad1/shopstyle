@@ -1,5 +1,7 @@
 import {
     Grid,
+    ImageListItem,
+    ImageListItemBar
   } from '@mui/material'
 
 import { makeStyles } from '@mui/styles';
@@ -12,13 +14,13 @@ const useStyles = makeStyles({
       borderRadius: 3,
       boxShadow: '0 3px 5px 2px rgba(100, 100, 100, .3)',
       padding: '0 30px',
-      margin: '10px'
+      display: 'inline-block',
     },
     image: {
       height: 200,
       overflow: 'scroll-x'
-    }
-  });
+    },
+});
 
 
   const Products = [
@@ -52,22 +54,22 @@ const useStyles = makeStyles({
 function ProductCard(props) {
     const classes = useStyles();
     return (
-      <Grid container className={classes.root} >
-        <Grid item xs={12} sm={12} md={12} lg={12}>
-            <Grid container>
-              <Grid item xs={4} sm={4} md={4} lg={4} my={3}>
-                <img src={props.product.images[0].url} className={classes.image}/>
-              </Grid>
-              <Grid item xs={8} sm={8} md={8} lg={8}>
-                <Grid container>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <h2>{props.product.product_title}</h2>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-        </Grid>
-      </Grid>
+      <ImageListItem key={props.product.images[0].url} style={{margin: 10}}>
+        <img
+          src={props.product.images[0].ur}
+          srcSet={props.product.images[0].url}
+          loading="lazy"
+          style={{
+            width: 260
+          }}
+        />
+        <ImageListItemBar
+          title={props.product.product_title}
+          subtitle={<span>by: {props.product.brand}</span>}
+          position="below"
+        />
+        <h5 style={{marginTop: 5}}>Price: {props.product.price} {props.product.currency_code}</h5>
+      </ImageListItem>
     );
   }
 
